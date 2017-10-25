@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BookStore</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/css/half-slider.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/tables.css">
+
+
+
+  </head>
+
+  <body style="background-image: url('static/img/slide3.jpg')">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">BookStore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('homepage')}}">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Novo</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="{{url_for('addEditora')}}">Editora</a>
+                <a class="dropdown-item" href="{{url_for('addAutor')}}">Autor</a>
+                <a class="dropdown-item" href="{{url_for('addLivro')}}">Livros</a>
+                
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#livro">Livros Cadastrados</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('catalogo')}}">Catalogo</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+        <div class="jumbotron" align="center">
+          <h2>Novo Livro</h2>
+          <form class="form" method="POST" autocomplete="off" id="formCadastro">
+                                <div class="form-group">
+                                      <label>Isbn</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="isbn">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Titulo</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="titulo">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Categoria</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="categoria">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Edição</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="edicao">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Ano</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="ano">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Descrição</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="descricao">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Preço</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="preco">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Catalogo</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="catalogo">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Autor</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="id_autor">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Editora</label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="id_editora">
+                                  </div>
+                                  <button type="submit" value="Cadastrar" class="btn btn-secundary my-2 my-sm-0">Adicionar</button>
+                              </form>
+        </div>
+    </div>
+
+    <div class="container" id="livro" align="center">
+        <div class="jumbotron" align="center">
+           <div class="container">
+            <div class="row" align="center">
+              <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Livros Cadastrados</h3>
+                  <div class="pull-right" align="right">
+                                      </div>
+                </div>
+                <table class="table table-striped"  align="center">
+                  <thead>
+                    <tr >
+                        <th class>id</th>
+                        <th>isbn</th>
+                        <th>titulo</th>
+                        <th>categoria</th>
+                        <th>edição</th>
+                        <th>ano</th>
+                        <th>descrição</th>
+                        <th>preço</th>
+                        <th>catalogo</th>
+                        <th>autor</th>
+                        <th>editora</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                              <!--For pra listar todos os livros cadastrado no banco-->
+                              {%- for livro in livros %}
+                              <tr>
+                             
+                                <td>{{livro.id}}</td>
+                                <td>{{livro.isbn}}</td>
+                                <td>{{livro.titulo}}</td>
+                                <td>{{livro.categoria}}</td>
+                                <td>{{livro.edicao}}</td>
+                                <td>{{livro.ano}}</td>
+                                <td>{{livro.descricao}}</td>
+                                <td>{{livro.id_autor}}</td>
+                                <td>{{livro.catalogo}}</td>
+                                <td>{{livro.preco}}</td>
+                                <td>{{livro.id_editora}}</td>
+                              
+                              <td><a href="{{url_for('atualizarLivro', id=livro.id)}}" class="btn btn-info">
+                                <i class="fa fa-pencil fa-fw"></i>
+                                Alterar</a>
+                              </td>
+                              <td><a href="{{url_for('removerlivro', index=livro.id)}}" class="btn btn-info">
+                                <i class="fa fa-trash-o fa-lg"></i>
+                                Excluir</a>
+                              </td>
+                              
+                              </tr> 
+                        {%- endfor %}
+                    </tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/jquery/jquery.min.js"></script>
+    <script src="static/popper/popper.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>
+
+    
