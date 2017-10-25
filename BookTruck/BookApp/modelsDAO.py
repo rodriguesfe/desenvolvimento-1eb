@@ -1,4 +1,5 @@
-from App import models, db
+# -*- coding: utf-8 -*-
+from BookApp import models, db
 
 #teste ok
 def obter_usuarios():
