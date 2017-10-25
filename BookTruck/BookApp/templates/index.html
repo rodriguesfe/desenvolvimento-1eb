@@ -27,35 +27,56 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('catalogo')}}">Catalogo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#sobre">Sobre</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contato">Contato</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('registro')}}">Cadastre-se</a>
-            </li>
+          <!--Se o usuario for do tipo 1, administrador ele tem acesso a esses links-->
+            {% if session['usuario'] == 1 %}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="{{url_for('login')}}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Login
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="{{url_for('login')}}">Cliente</a>
-                <a class="dropdown-item" href="{{url_for('loginM')}}">Funcionario</a>
-                <a class="dropdown-item" href="{{url_for('loginM')}}">Administrador</a>
-              </div>
-            </li>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Novo</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="{{url_for('addEditora')}}">Editora</a>
+              <a class="dropdown-item" href="{{url_for('addAutor')}}">Autor</a>
+              <a class="dropdown-item" href="{{url_for('addLivro')}}">Livros</a>
+              
+              
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('catalogo')}}">Catalogo</a>
+          </li>
+          <!--Se não, ele tem acesso aos link do usuario cliente-->
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('catalogo')}}">Catalogo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sobre">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contato">Contato</a>
+          </li>
+          
+          {% endif %}
+          <!--Se o usuario estiver em sessão e for do tipo cliente ele tem acesso aos link de carrinho e de sair-->
+          {% if 'usuario' in session %}
+          {% if session['usuario'] == 2 %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('carrinho')}}">Carrinho</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('logout')}}">Sair</a>
+          </li>
+          {% else %}  
+          <!--Se não houver nenhum usuario logado a barra mostra os links de cadastro e login-->
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('registro')}}">Cadastre-se</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('login')}}">Login</a>
+          </li>
+          {% endif %}
           </ul>
         </div>
       </div>
@@ -180,13 +201,13 @@
             <br>
             <ul class="list-inline list-social">
               <li class="list-inline-item social-twitter">
-                <img src="static/img/facebook.png" width="80" height="80">
+                <img src="static/img/social/facebook.png" width="80" height="80">
               </li>
               <li class="list-inline-item social-facebook">
-                <img src="static/img/insta.png" width="80" height="80">
+                <img src="static/img/social/insta.png" width="80" height="80">
               </li>
               <li class="list-inline-item social-google-plus">
-                <img src="static/img/twitter.png" width="80" height="80">
+                <img src="static/img/social/twitter.png" width="80" height="80">
               </li>
             </ul>
 
