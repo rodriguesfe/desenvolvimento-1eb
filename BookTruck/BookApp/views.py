@@ -18,10 +18,10 @@ def login():
 		return render_template('index.html')
 	'''Se não, ele pega atraves do 'POST' os dados que o usuário forneceu lá no formulário:'''
 	if request.method == 'POST':
-		username = request.form['username']
+		nome = request.form['nome']
 		senha = request.form['senha']
 		'''Pesquisa o usuario no banco de acordo como a informação que o usuario forneceu'''
-		usuario = models.Usuario.query.filter_by(user=username).first()
+		usuario = models.Usuario.query.filter_by(nome=nome).first()
 
 		'''Verifica se o usuario é válido e se a senha que o usuario forneceu é igual a que ele cadastrou'''
 		if (usuario is not None and usuario.senha == senha):
@@ -110,15 +110,14 @@ def addLivro():
 '''Esse metodo é similar ao metodo usado em modelsDAO na parte de testes'''
 def remover_Livro(id):
 	'''"livro" guarda o id do livro a ser excluído'''
-    livro = models.Livro.query.get(id)
-
-    '''verifica se o livro é válido'''
-    if livro is not None:
-    	'''se sim, exclui o livro do banco'''
-        db.session.delete(livro)
-        db.session.commit()
-    else:
-        raise Exception('Livro não existe!')
+	livro = models.Livro.query.get(id)
+	'''verifica se o livro é válido'''
+	if livro is not None:
+		'''se sim, exclui o livro do banco'''
+		db.session.delete(livro)
+		db.session.commit()
+	else:
+		raise Exception('Livro não existe!')
 
 '''o "<int:index>" na rota é o id do livro'''
 @app.route('/addLivro/remover/<int:index>')
